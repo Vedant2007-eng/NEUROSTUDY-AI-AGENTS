@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithPopup } from "firebase/auth";
+import { signInWithRedirect } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -30,16 +30,14 @@ export default function LoginPage() {
       router.push("/dashboard");
     }
   }, [user, loading, router]);
-
   const handleGoogleLogin = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      document.cookie = "auth-token=true; path=/; max-age=86400";
-      window.location.href = "/dashboard";
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  };
+  try {
+    console.log("Login started...");
+    await signInWithRedirect(auth, googleProvider);
+  } catch (error: any) {
+    console.log(error);
+  }
+};
 
   if (loading) {
     return (
