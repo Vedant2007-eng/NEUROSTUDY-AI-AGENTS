@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactElement } from "react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -144,7 +145,7 @@ const Icon = {
   ),
 };
 
-const iconForAgent: Record<string, (p: { size?: number; color?: string }) => JSX.Element> = {
+const iconForAgent: Record<string, (p: { size?: number; color?: string }) => ReactElement> = {
   "Notes Agent": Icon.Book,
   "Quiz Agent": Icon.Brain,
   "Doubt Agent": Icon.MessageSquare,
