@@ -6,6 +6,16 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 
+const handleGoogleLogin = async () => {
+  try {
+    await signInWithPopup(auth, googleProvider);
+    // Don't manually push here — let the useEffect below handle it
+    // once onAuthStateChanged fires with the new user
+  } catch (error: any) {
+    console.error("Login error:", error.message);
+  }
+};
+
 const agentList = [
   { icon: "📄", label: "Notes Agent", desc: "Auto-generates smart notes from any PDF" },
   { icon: "🧠", label: "Quiz Agent", desc: "Creates MCQs with difficulty levels" },
