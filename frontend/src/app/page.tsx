@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithRedirect } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -33,9 +33,12 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
   try {
     console.log("Login started...");
-    await signInWithRedirect(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider);
+    router.push("/dashboard");
   } catch (error: any) {
-    console.log(error);
+    console.error("Code:", error.code);
+    console.error("Message:", error.message);
+    console.error("Full error:", error);
   }
 };
 
